@@ -1,0 +1,40 @@
+List the current directories file and directory vikash
+	ls -s
+
+List the another directory then the current. priyom
+	ls <path>
+
+Change to a different Directory. vikash
+	cd <path>
+
+Remove a file in the current directory. priyom
+	rm <file name>
+
+Remove a file in a different directory.
+	rm <path and file name>
+
+Remove a directory in current directory.
+	rmdir <directory name>
+
+Remove a directory in a different directory.
+	rmdir <path and directory name>
+
+Show the contents of a file
+	cat <file name>
+	or
+	cat <path file name>
+
+Show current directory
+	pwd
+
+Run a command as root
+	sudo <command>
+	or
+	su
+	su will provide root account access. After running this command you will be prompted for root password. 		After providing the correct password you will then be logged in as root for that terminal session.
+
+Install a package at the command line (root access needed by su or sudo)
+	yum install <package>
+
+Log out (or close if open from a Desktop Manager)
+exit
