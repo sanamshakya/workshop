@@ -1,9 +1,7 @@
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
-from matplotlib import pyplot as plt1
 
-img = cv2.imread('water_coins.jpg')
+img = cv2.imread('coins.jpg')
 b,g,r = cv2.split(img)
 rgb_img = cv2.merge([r,g,b])
 
@@ -12,14 +10,17 @@ ret, thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 
 # noise removal
 kernel = np.ones((3,3),np.uint8)
-opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 2)
-#closing = cv2.morphologyEx(thresh,cv2.MORPH_CLOSE,kernel, iterations = 2)
+#opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 2)
+closing = cv2.morphologyEx(thresh,cv2.MORPH_CLOSE,kernel, iterations = 2)
 
 # sure background area
-sure_bg = cv2.dilate(opening,kernel,iterations=3)
+sure_bg = cv2.dilate(closing,kernel,iterations=3)
 
 # Finding sure foreground area
 dist_transform = cv2.distanceTransform(sure_bg,cv2.DIST_L2,5)
+
+#cv2.imshow('Distance Transform',dist_transform)
+
 
 # Threshold
 ret, sure_fg = cv2.threshold(dist_transform,0.7*dist_transform.max(),255,0)
@@ -30,44 +31,30 @@ unknown = cv2.subtract(sure_bg,sure_fg)
 
 # Marker labelling
 ret, markers = cv2.connectedComponents(sure_fg)
-plt1.subplot(221),plt1.imshow(markers)
-plt1.title('Connected Markers'), plt1.xticks([]), plt1.yticks([])
 
 # Add one to all labels so that sure background is not 0, but 1
 markers = markers+1
-plt1.subplot(222),plt1.imshow(markers)
-plt1.title('Connected Markers + 1'), plt1.xticks([]), plt1.yticks([])
 
 # Now, mark the region of unknown with zero
 markers[unknown==255] = 0
-plt1.subplot(223),plt1.imshow(markers)
-plt1.title('Connected Markers Unknown'), plt1.xticks([]), plt1.yticks([])
 
 markers = cv2.watershed(img,markers)
-plt1.subplot(224),plt1.imshow(markers)
-plt1.title('Watershed Markers'), plt1.xticks([]), plt1.yticks([])
-img[markers == -1] = [255,0,0]
 
-plt.subplot(241),plt.imshow(rgb_img)
-plt.title('Input Image'), plt.xticks([]), plt.yticks([])
-plt.subplot(242),plt.imshow(thresh, 'gray')
-plt.title("Otsu's binary threshold"), plt.xticks([]), plt.yticks([])
+img[markers == -1] = [0,0,255]
 
-plt.subplot(243),plt.imshow(opening, 'gray')
-plt.title("morphologyEx:Closing:2x2"), plt.xticks([]), plt.yticks([])
-plt.subplot(244),plt.imshow(sure_bg, 'gray')
-plt.title("Dilation"), plt.xticks([]), plt.yticks([])
+cv2.imshow('Input Image', rgb_img)
+#cv2.imshow('Otsu\'s binary threshold', thresh)
 
-plt.subplot(245),plt.imshow(dist_transform, 'gray')
-plt.title("Distance Transform"), plt.xticks([]), plt.yticks([])
-plt.subplot(246),plt.imshow(sure_fg, 'gray')
-plt.title("Thresholding"), plt.xticks([]), plt.yticks([])
+#cv2.imshow('morphologyEx:Closing:2x2', opening)
+#cv2.imshow('Dilation',sure_bg)
 
-plt.subplot(247),plt.imshow(unknown, 'gray')
-plt.title("Unknown"), plt.xticks([]), plt.yticks([])
+#cv2.imshow('Thresholding',sure_fg)
 
-plt.subplot(248),plt.imshow(img, 'gray')
-plt.title("Result from Watershed"), plt.xticks([]), plt.yticks([])
+#cv2.imshow('Unknown Region',unknown)
+cv2.imshow('Result from Watershed',img)
 
-plt.show()
-#plt1.show()
+############################################
+## Close and exit
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+############################################
