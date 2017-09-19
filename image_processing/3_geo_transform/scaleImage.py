@@ -18,10 +18,15 @@ res = cv2.resize(img,(width/2, height/2), interpolation = cv2.INTER_CUBIC)
 ############################################
 ## Show the image
 cv2.imshow('image',res)
+cv2.imshow('original', img)
 ############################################
 
 ############################################
 ## Close and exit
-cv2.waitKey(0)
+while(1):
+   key= cv2.waitKey(1)
+   if (key & 0xFF) == 27:
+       break
+
 cv2.destroyAllWindows()
 ############################################

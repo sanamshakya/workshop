@@ -1,0 +1,29 @@
+APT For Debian based distributions, like, Ubuntu, Linux Mint etc.
+
+
+The APT is the tool, commonly used to install packages, remotely from the software repository. In short it's a simple command based tool that you use to install files/softwares. Complete command is apt-get and it's the easiest way to install files/Softwares packages. This easy tools informs you about packages that are currently being installed and also it informs you about the packages that are available in repositories.
+ 
+
+
+apt-get install ${packagename}
+
+To remove/uninstall any software, just use remove
+
+apt-get remove ${packagename}
+
+The software packages are somewhere in the online repositoies, APT handles a local database on the user's hard drive that contains informations about the available packages and where they are located. So when the types the command, apt-get install conky, the APT will start finding the package named conky in the database and will install conky once user types 'y' (yes). To get the all newly uploaded packages on the repositories, user need to update APT regularly.
+To update APT database:
+
+
+apt-get update
+
+To update the APT database and also upgrade the security updates and patches that might be available for some installed softwares, users may do it at once just by using the commands like this:
+
+apt-get update; apt-get upgrade
+
+And remember all of the package management tools I am discussing, will need user to be in root or superuser, for example to install software in debian based distributions you will use apt-get followed by sudo then It will ask you to enter password.
+
+
+sudo apt-get install conky
+sudo apt-get remove conky
+sudo apt-get update
