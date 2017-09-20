@@ -9,14 +9,14 @@ import cv2
 img = cv2.imread('test_image.jpg')
 print img.shape
 
-cv2.imshow('image_whole',img)
+#cv2.imshow('image_whole',img)
 
-#img[:,:,0]=0 #Blue channel of image
-img[:,:,1]=0 #Green channel of image
+#img[:,:,0]=128 #Blue channel of image
+#img[:,:,1]=0 #Green channel of image
 img[:,:,2]=0 #Red channel of image
 
-
-
+img1=img[:,:,0]
+print img1.shape
 ############################################
 
 ############################################
@@ -25,8 +25,8 @@ img[:,:,2]=0 #Red channel of image
 
 ############################################
 ## Show the image
-cv2.imshow('image_split',img)
-
+#cv2.imshow('image_split',img)
+cv2.imshow('image_bk', img1)
 ############################################
 
 ############################################

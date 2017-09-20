@@ -12,7 +12,7 @@ while(1):
     
     ## Read the image
     ret, frame = cap.read()
-    
+    print ret    
     ## Do the processing
 
     ## Show the image

@@ -14,8 +14,8 @@ import cv2
 ############################################
 ## Read the image
 fullPattern = np.zeros((400,400),np.uint8)
-fullPattern[200:400,0:200]=255
-fullPattern[0:200,200:400]=255
+fullPattern[100:400,0:200]=255
+#fullPattern[0:200,200:400]=255
 
 
 

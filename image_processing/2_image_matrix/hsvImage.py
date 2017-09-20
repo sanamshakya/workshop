@@ -20,7 +20,7 @@ print "hsv image matrix = ", hsv.shape
 (width, height, channel)= hsv.shape
 canvas = np.zeros((width,height), np.uint8)
 
-canvas = hsv[:, :, 2]
+canvas = hsv[:, :, 0]
 ############################################
 ## Show the image
 cv2.imshow('image',img)
