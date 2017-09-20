@@ -27,6 +27,10 @@ cv2.imshow('output', dst)
 
 ############################################
 ## Close and exit
-cv2.waitKey(0)
+while(1):
+       key= cv2.waitKey(1)
+       if (key & 0xFF) == 27:
+           break
+
 cv2.destroyAllWindows()
 ############################################
